@@ -34,7 +34,7 @@ export class Player implements OnInit {
     private _spotifyAlbum: SpotifyAlbumService,
     private _spotifyPlayback: SpotifyPlaybackService
   ) {
-    this.album$ = this._spotifyAlbum.getAlbum('4X6PQwYWxtGGtKjAfX6wa6');
+    this.album$ = this._spotifyAlbum.getAlbum('2X6WyzpxY70eUn3lnewB7d');
   }
 
   ngOnInit(): void {}
