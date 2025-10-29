@@ -1,0 +1,168 @@
+/* player.css (Versión Limpia) */
+
+/* --- 🎨 GUÍA DE ESTILO CENTRAL 🎨 --- */
+:host {
+  /* Paleta de Colores */
+  --color-bg-principal: #1a1a1a;
+  --color-bg-secundario: #1e1e1e;
+  --color-bg-terciario: #2c2c2c;
+  --color-bg-player: #0d0d0d;
+  --color-bg-hover: #3a3a3a;
+  --color-borde: #2a2a2a;
+  --color-acento: #1db954;
+
+  /* Paleta de Texto */
+  --color-texto-principal: #e0e0e0;
+  --color-texto-secundario: #b0b0b0;
+  --color-texto-blanco: #ffffff;
+
+  /* Diseño y Sombras */
+  --radio-borde: 10px;
+  --sombra-caja: 0 4px 15px rgba(0, 0, 0, 0.5);
+  --sombra-player: 0 -5px 25px rgba(0, 0, 0, 0.8);
+
+  /* Estilos del Host */
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-bg-principal);
+  color: var(--color-texto-principal);
+  font-family: 'Inter', sans-serif;
+  padding-top: 15px;
+  box-sizing: border-box;
+}
+
+#main {
+  width: 95%;
+  height: calc(100% - 110px);
+  display: grid;
+  grid-template-columns: 75% 25%;
+  grid-template-rows: 100%;
+  align-items: center;
+  justify-items: center;
+  margin-bottom: 20px;
+  gap: 20px; /* Añadimos gap para espaciar */
+}
+
+/* --- ESTILOS DE MAQUETACIÓN (LAYOUT) --- */
+/* Aquí solo definimos EL CONTENEDOR de los hijos */
+app-song-info {
+  display: block; /* Dejamos que el componente interno decida el flex */
+  width: 90%;
+  height: 100%; /* Hacemos que ocupe el alto de la celda */
+}
+
+app-playlist {
+  display: block;
+  width: 90%;
+  height: 100%; /* Ocupa todo el alto de la celda */
+}
+
+/* --- BARRA INFERIOR DEL REPRODUCTOR --- */
+.bottom-player-bar {
+  position: fixed;
+  left: 0;
+  bottom: 0; /* Aseguramos que esté abajo */
+  width: 100%;
+  height: 100px;
+  background-color: var(--color-bg-player);
+  border-top: 1px solid var(--color-borde);
+  box-shadow: var(--sombra-player);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+app-audio-controller {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.player-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: clamp(180px, 40%, 400px);
+}
+
+/* --- ESTILOS DE BOTONES (Se mantienen igual, están bien) --- */
+button {
+  background-color: transparent;
+  border: none;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+button:active {
+  /* ... */
+}
+.button-icon {
+  /* ... */
+}
+button:focus {
+  /* ... */
+}
+
+/* --- BOTÓN DE PLAY (MÁS LLAMATIVO) --- */
+/* El :nth-child(2) selecciona el 2do botón (Play/Pause) */
+.player-controls button:nth-child(2) {
+  background-color: var(--color-texto-blanco);
+  width: 48px; /* Un poco más grande */
+  height: 48px;
+  padding: 0;
+}
+
+.player-controls button:nth-child(2) .button-icon {
+  width: 30px;
+  height: 30px;
+  /* Esto vuelve negros los SVG (si son blancos por defecto) */
+  filter: brightness(0);
+}
+
+.player-controls button:nth-child(2):hover {
+  transform: scale(1.05) translateY(-2px);
+  background-color: #f0f0f0;
+}
+
+/* --- Responsividad (Se mantiene igual, solo ajusta el grid) --- */
+@media (max-width: 768px) {
+  :host {
+    padding-top: 10px;
+  }
+  #main {
+    width: 98%;
+    height: calc(100% - 90px);
+    grid-template-columns: 1fr; /* Una columna */
+    grid-template-rows: auto 1fr; /* Canción (auto) y Playlist (ocupa el resto) */
+    gap: 15px;
+  }
+  app-song-info {
+    width: 95%;
+    height: auto; /* Altura automática en móvil */
+  }
+  app-playlist {
+    width: 95%;
+    height: 100%; /* Ocupa el 1fr del grid-template-rows */
+  }
+
+  /* ... el resto de tus media queries ... */
+}

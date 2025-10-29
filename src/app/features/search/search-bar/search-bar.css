@@ -1,0 +1,45 @@
+.search-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1e1e1e; /* Fondo oscuro para combinar con el tema */
+    border-radius: 30px;
+    padding: 10px 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para profundidad */
+}
+
+/* Estilo para el input de búsqueda */
+#search-bar {
+    width: 90%; /* Ancho casi completo */
+    padding: 10px;
+    font-size: 1.1em;
+    border: none;
+    background-color: transparent;
+    color: #FFF; /* Texto blanco para contraste */
+    border-radius: 15px;
+    outline: none; /* Elimina el borde por defecto al hacer foco */
+    transition: background-color 0.3s ease; /* Transición al hacer foco */
+}
+
+/* Estilo al hacer foco en el input */
+#search-bar:focus {
+    background-color: #333; /* Fondo más oscuro al hacer foco */
+    box-shadow: 0 0 8px rgba(29, 185, 84, 0.6); /* Sombra verde cuando está enfocado */
+}
+
+/* Estilo para el icono de búsqueda */
+#search-icon {
+    cursor: pointer;
+    color: #1DB954; /* Color verde brillante (similar al de Spotify) */
+    font-size: 1.5em; /* Tamaño adecuado para el icono */
+    margin-left: 10px;
+    transition: color 0.3s ease; /* Transición suave al hacer hover */
+}
+
+/* Efecto hover en el icono */
+#search-icon:hover {
+    color: #FFF; /* Cambia a blanco al pasar el ratón */
+}

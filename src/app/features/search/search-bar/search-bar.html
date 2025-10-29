@@ -1,0 +1,13 @@
+<!-- src/app/search/search-bar/search-bar.html (CORREGIDO) -->
+<div class="search-container">
+  <input
+    type="text"
+    [(ngModel)]="searchQuery"
+    id="search-bar"
+    placeholder="Buscar canciones o álbumes..."
+    (keyup.enter)="doSearch()"
+  />
+  <span id="search-icon" (click)="doSearch()" role="button" aria-label="Iniciar búsqueda">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </span>
+</div>

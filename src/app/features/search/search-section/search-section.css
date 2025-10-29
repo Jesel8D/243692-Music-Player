@@ -1,0 +1,55 @@
+/* src/app/search/search-section/search-section.css */
+
+.results-container {
+  width: 100%;
+  max-width: 400px; /* Mismo ancho que la barra de búsqueda */
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 40vh; /* Límite de altura */
+  overflow-y: auto; /* Scroll si hay muchos resultados */
+}
+
+.result-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  background-color: var(--color-bg-terciario, #2c2c2c);
+  border-radius: var(--radio-borde, 8px);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.result-item:hover {
+  background-color: var(--color-bg-hover, #3a3a3a);
+}
+
+.result-item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+}
+
+.result-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.track-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--color-texto-principal, #e0e0e0);
+}
+
+.artist-name {
+  font-size: 14px;
+  color: var(--color-texto-secundario, #b0b0b0);
+}
+
+.no-results {
+  text-align: center;
+  color: var(--color-texto-secundario, #b0b0b0);
+  padding: 20px;
+}

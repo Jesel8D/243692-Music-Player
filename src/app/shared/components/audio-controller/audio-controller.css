@@ -1,0 +1,142 @@
+/* Aquí tu archivo .component.scss para el reproductor de música */
+
+:host {
+    width: 100%;
+    /* Ajusta la altura del host del reproductor. Podemos usar una altura fija más estilizada. */
+    height: 90px; /* Una altura cómoda para la barra del reproductor */
+    margin-top: auto; /* Empuja el reproductor hacia la parte inferior si está en un contenedor flex-column */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el contenido verticalmente */
+    align-items: center; /* Centra el contenido horizontalmente */
+    background-color: #0d0d0d; /* Fondo muy oscuro para la barra del reproductor */
+    border-top: 1px solid #2a2a2a; /* Borde superior sutil */
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.7); /* Sombra hacia arriba para destacar */
+    padding: 10px 0; /* Padding interno para los elementos */
+    box-sizing: border-box; /* Fundamental para que el padding no afecte la altura total */
+    color: #e0e0e0; /* Color de texto/icono general */
+}
+
+/* El elemento <audio> con 'hidden' no necesita estilos visuales, solo funcional. */
+audio[hidden] {
+    display: none;
+}
+
+#control-bar {
+    width: clamp(250px, 60%, 800px); /* Ancho responsivo: min 250px, 60% del padre, max 800px */
+    height: 4px; /* Barra de progreso más fina */
+    -webkit-appearance: none; /* Eliminar estilos por defecto del navegador */
+    appearance: none;
+    background: #4a4a4a; /* Fondo de la barra sin progreso */
+    border-radius: 2px; /* Bordes redondeados */
+    margin-bottom: 10px; /* Espacio entre la barra de control y los botones */
+    outline: none; /* Eliminar el contorno al enfocar */
+    cursor: pointer; /* Indicar que es interactuable */
+
+    /* Estilos del 'thumb' (el control deslizante) */
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 14px; /* Tamaño del thumb */
+        height: 14px;
+        background: #ff4081; /* Tu color primario */
+        border-radius: 50%; /* Circular */
+        box-shadow: 0 0 5px rgba(255, 64, 129, 0.5); /* Sombra para el thumb */
+        cursor: pointer;
+        margin-top: -5px; /* Ajusta la posición vertical del thumb */
+        transition: background 0.2s, transform 0.2s; /* Transición suave */
+    }
+
+    &::-moz-range-thumb {
+        width: 14px;
+        height: 14px;
+        background: #ff4081;
+        border-radius: 50%;
+        box-shadow: 0 0 5px rgba(255, 64, 129, 0.5);
+        cursor: pointer;
+        border: none; /* Eliminar borde por defecto en Firefox */
+        transition: background 0.2s, transform 0.2s;
+    }
+
+    /* Estilos de la parte 'track' (la barra de progreso) */
+    &::-webkit-slider-runnable-track {
+        background: linear-gradient(to right, #ff4081 var(--progress, 0%), #4a4a4a var(--progress, 0%));
+        border-radius: 2px;
+        height: 4px;
+    }
+
+    &::-moz-range-track {
+        background: linear-gradient(to right, #ff4081 var(--progress, 0%), #4a4a4a var(--progress, 0%));
+        border-radius: 2px;
+        height: 4px;
+    }
+
+    /* Hover effect for thumb */
+    &:hover::-webkit-slider-thumb {
+        transform: scale(1.2);
+    }
+    &:hover::-moz-range-thumb {
+        transform: scale(1.2);
+    }
+}
+
+
+.player-buttons {
+    width: clamp(180px, 30%, 400px); /* Ancho responsivo para los botones */
+    height: 50%; /* Ocupa la mitad de la altura del host */
+    display: flex;
+    justify-content: space-around; /* Distribuye los botones equitativamente */
+    align-items: center;
+    margin-top: 5px; /* Espacio entre la barra y los botones */
+}
+
+.player-buttons span {
+    display: flex; /* Para centrar el icono dentro del span */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* Indica que son clickeables */
+    transition: color 0.2s ease-in-out, transform 0.1s ease-in-out; /* Transición suave */
+    color: #b0b0b0; /* Color predeterminado de los iconos */
+
+    &:hover {
+        color: #ffffff; /* Blanco al pasar el ratón */
+        transform: scale(1.1); /* Ligeramente más grande */
+    }
+
+    &:active {
+        transform: scale(0.9); /* Efecto de "presionado" */
+    }
+}
+
+.player-buttons span i {
+    font-size: 1.8em; /* Ajusta el tamaño de los iconos */
+    /* El icono de play/pause podría ser más grande */
+    &.fa-play, &.fa-pause { /* Asumiendo que cambiarás la clase para pausa */
+        font-size: 2.5em; /* Icono de play/pause más grande */
+        color: #ff4081; /* Color primario para el botón principal */
+        &:hover {
+            color: #ff6eac; /* Un tono más claro de tu primario al pasar el ratón */
+        }
+    }
+}
+
+/* Responsividad básica para el reproductor */
+@media (max-width: 768px) {
+    :host {
+        height: 80px; /* Un poco menos alto en móviles */
+        padding: 8px 0;
+    }
+    #control-bar {
+        width: 80%; /* Más ancho en móviles */
+        margin-bottom: 8px;
+    }
+    .player-buttons {
+        width: 60%; /* Más ancho en móviles */
+    }
+    .player-buttons span i {
+        font-size: 1.5em;
+        &.fa-play, &.fa-pause {
+            font-size: 2em;
+        }
+    }
+}

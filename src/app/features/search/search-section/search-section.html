@@ -1,0 +1,15 @@
+<app-search-bar (search)="onSearch($event)"></app-search-bar>
+
+<div class="results-container">
+  @for(track of results(); track track.id) {
+  <div class="result-item">
+    <img [src]="track.album.images[0]?.url" alt="Cover" />
+    <div class="result-details">
+      <span class="track-name">{{ track.name }}</span>
+      <span class="artist-name">{{ track.artists[0].name }}</span>
+    </div>
+  </div>
+  } @empty {
+  <p classs="no-results">No se encontraron resultados. Intenta otra búsqueda.</p>
+  }
+</div>

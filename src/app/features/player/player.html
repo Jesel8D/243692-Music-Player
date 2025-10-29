@@ -1,0 +1,28 @@
+<app-search-section></app-search-section>
+
+<div id="main" *ngIf="album$ | async as album">
+  <app-song-info
+    [song]="album?.tracks?.[currentTrackIndex]"
+    [cover]="album?.images?.[0]"
+    displayMode="main"
+  ></app-song-info>
+  <app-playlist [playlist]="album?.tracks" [cover]="album?.images?.[0]"></app-playlist>
+</div>
+
+<div class="bottom-player-bar" *ngIf="album$ | async as album">
+  <app-audio-controller></app-audio-controller>
+
+  <div class="player-controls">
+    <button *ngIf="album?.tracks?.length" (click)="previousTrack(album)">
+      <img src="/left.svg" alt="Previous" class="button-icon" />
+    </button>
+
+    <button *ngIf="album?.tracks?.length" (click)="togglePlayPause(album)">
+      <img [src]="isPlaying ? '/pause.svg' : '/play.svg'" alt="Play/Pause" class="button-icon" />
+    </button>
+
+    <button *ngIf="album?.tracks?.length" (click)="skipTrack(album)">
+      <img src="/right.svg" alt="Next" class="button-icon" />
+    </button>
+  </div>
+</div>

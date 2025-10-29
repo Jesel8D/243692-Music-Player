@@ -1,0 +1,92 @@
+/* playlist.css (Refactorizado con Variables) */
+
+:host {
+  height: 100%;
+  width: 100%;
+}
+
+/* Título de la lista de canciones (Queue) */
+h1 {
+  font-size: 2rem;
+  color: var(--color-texto-blanco); /* ✨ Variable */
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Contenedor principal de la lista de canciones */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espacio entre canciones */
+  padding: 20px;
+  height: 80vh;
+  overflow-y: auto;
+
+  /* Aquí usamos un color un poco más oscuro, como el del player,
+     que se parece más al #121212 que tenías */
+  background-color: var(--color-bg-player); /* ✨ Variable */
+
+  border-radius: var(--radio-borde); /* ✨ Variable (era 15px, ahora 10px por consistencia) */
+  box-shadow: var(--sombra-caja); /* ✨ Variable */
+  width: 90%;
+  margin: 0 auto; /* Centrado en la pantalla */
+}
+
+/* Estilo para cada componente app-song-info en la lista */
+app-song-info {
+  background-color: var(--color-bg-secundario); /* ✨ Variable (era #1e1e1e) */
+  padding: 20px;
+  border-radius: var(--radio-borde); /* ✨ Variable (era 10px, se mantiene) */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Sombra específica para items */
+  transition: background-color 0.3s ease;
+}
+
+/* Efecto hover para cada canción en la lista */
+app-song-info:hover {
+  background-color: var(--color-bg-hover); /* ✨ Variable (era #2c2c2c) */
+}
+
+/* Espaciado entre cada componente de la canción */
+app-song-info .card-song-title {
+  font-size: 1.4rem;
+  color: var(--color-texto-principal); /* ✨ Variable (era #e0e0e0) */
+  font-weight: bold;
+}
+
+app-song-info .card-song-artist {
+  font-size: 1.2rem;
+  color: var(--color-texto-secundario); /* ✨ Variable (era #b0b0b0) */
+}
+
+/* ... el resto de tu CSS (media queries, etc.) se mantiene igual ... */
+
+/* Asegurarse de que el contenido tenga un buen espaciado entre los elementos */
+.content > * {
+  margin-bottom: 15px;
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+  .content {
+    width: 95%;
+    padding: 15px;
+    height: auto;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  app-song-info {
+    padding: 15px;
+  }
+
+  app-song-info .card-song-title {
+    font-size: 1.2rem;
+  }
+
+  app-song-info .card-song-artist {
+    font-size: 1rem;
+  }
+}
