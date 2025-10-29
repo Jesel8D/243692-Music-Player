@@ -1,27 +1,28 @@
-// src/app/search/search-module.ts
+// src/app/features/search/search-module.ts
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // <-- ¡Muy importante para [(ngModel)]!
+import { FormsModule } from '@angular/forms';
 
+import { SearchPageComponent } from './search-page/search-page';
 import { SearchBar } from './search-bar/search-bar';
 import { SearchSection } from './search-section/search-section';
-import { SearchPage } from './search-page/search-page';
 
 @NgModule({
   declarations: [
-    SearchBar, // Declara los dos componentes
-    SearchSection, SearchPage,
+    // SearchBar, <-- ¡QUITA ESTA LÍNEA!
+    SearchSection,
   ],
   imports: [
-    CommonModule, // Necesario para @for, @if, etc.
-    FormsModule, // Necesario para [(ngModel)] en la barra de búsqueda
-  ],
-  providers: [
-    // ¡No pongas 'provideHttpClient' aquí! Ya está en app.module.ts
+    CommonModule,
+    FormsModule,
+    SearchPageComponent,
+    SearchBar, // <-- ¡IMPORTA SearchBar aquí! (para que SearchSection lo use)
   ],
   exports: [
-    SearchSection, // <-- ¡CLAVE! Exportamos el componente "padre"
+    SearchSection,
+    SearchPageComponent,
+    // Ya no necesitas exportar SearchBar desde aquí
   ],
 })
 export class SearchModule {}

@@ -1,22 +1,19 @@
+// src/app/shared/components/song-info/song-info.ts
+
 import { Component, input } from '@angular/core';
-// ✨ RUTA CORREGIDA (sube 3 niveles a 'app/', luego baja a 'interfaces/')
 import { Track } from '../../../interfaces/track';
 import { Image } from '../../../interfaces/image';
+import { CommonModule } from '@angular/common'; // <-- 1. Importa CommonModule
+
 @Component({
   selector: 'app-song-info',
-  standalone: false,
+  standalone: true, // <-- 2. ¡Hazlo Standalone!
+  imports: [CommonModule], // <-- 3. Importa CommonModule aquí
   templateUrl: './song-info.html',
-  styleUrl: './song-info.css',
-  host: {
-    '[class]': 'displayMode()',
-  },
+  styleUrls: ['./song-info.css'],
 })
 export class SongInfo {
-  display_mode = input.required<string>({ alias: 'displayMode' });
-  song = input.required<Track | undefined>();
-  cover = input.required<Image | undefined>();
-
-  displayMode() {
-    return this.display_mode();
-  }
+  song = input<Track | undefined>();
+  cover = input<Image | undefined>();
+  displayMode = input<'main' | 'card'>('card');
 }

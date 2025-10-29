@@ -1,21 +1,28 @@
-// src/app/app-routing-module.ts (CORREGIDO)
+// src/app/app-routing-module.ts
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-// --- ¡Importa desde las NUEVAS rutas! ---
 import { Player } from './features/player/player';
 import { AudioController } from './shared/components/audio-controller/audio-controller';
+
+// 1. Importa tu nueva página
+import { SearchPageComponent } from './features/search/search-page/search-page';
 
 const routes: Routes = [
   {
     path: '',
-    component: Player, // <-- Ruta actualizada
+    component: Player,
     title: 'Player Music',
+  },
+  // --- ✨ 2. AÑADE LA NUEVA RUTA AQUÍ ✨ ---
+  {
+    path: 'search', // La URL será /search
+    component: SearchPageComponent,
+    title: 'Buscar',
   },
   {
     path: 'controller',
-    component: AudioController, // <-- Ruta actualizada
+    component: AudioController,
   },
 ];
 

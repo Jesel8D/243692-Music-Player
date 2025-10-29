@@ -1,36 +1,29 @@
-// src/app/search/search-bar/search-bar.ts
+// src/app/features/search/search-bar/search-bar.ts
 
-// ¡Importa EventEmitter y Output!
 import { Component, EventEmitter, Output } from '@angular/core';
-// Ya NO necesitamos el servicio aquí
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms'; // <-- 1. Importa FormsModule
+import { CommonModule } from '@angular/common'; // <-- 2. Importa CommonModule
 
 @Component({
   selector: 'app-search-bar',
-  standalone: false,
+  standalone: true, // <-- 3. ¡Hazlo Standalone!
+  imports: [CommonModule, FormsModule], // <-- 4. Importa lo que usa (ngModel)
   templateUrl: './search-bar.html',
   styleUrls: ['./search-bar.css'],
 })
 export class SearchBar {
   public searchQuery: string = '';
-
-  // 1. Creamos el "emisor de eventos"
-  // Esto le gritará al padre "¡Hey, el usuario buscó esto!"
   @Output() search = new EventEmitter<string>();
 
-  // 2. Ya NO inyectamos el servicio. Este componente no lo necesita.
-  constructor() {}
+  constructor(private router: Router) {}
 
   doSearch(): void {
-    console.log('¡Icono clickeado en search-bar!'); // Log para saber que el clic funciona
-
-    // 3. Revisamos que no esté vacío
-    if (!this.searchQuery || this.searchQuery.trim() === '') {
-      console.log('Campo vacío, no se emite nada.');
-      return;
-    }
-
-    // 4. ¡Emitimos el evento al padre con el texto!
-    console.log(`Emitiendo búsqueda: "${this.searchQuery}"`);
+    if (!this.searchQuery || this.searchQuery.trim() === '') return;
     this.search.emit(this.searchQuery);
+  }
+
+  onFocus(): void {
+    this.router.navigate(['/search']);
   }
 }

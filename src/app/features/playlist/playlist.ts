@@ -1,18 +1,24 @@
-// src/app/features/playlist/playlist.ts (CORREGIDO)
+// src/app/features/playlist/playlist.ts
 
 import { Component, input } from '@angular/core';
-// --- ¡Rutas actualizadas! ---
-import { Song } from '../../interfaces/song';
 import { Track } from '../../interfaces/track';
 import { Image } from '../../interfaces/image';
 
+// --- ✨ IMPORTA LO NECESARIO ✨ ---
+import { CommonModule } from '@angular/common'; // Para @for
+import { SongInfo } from '../../shared/components/song-info/song-info'; // Para <app-song-info>
+
 @Component({
   selector: 'app-playlist',
-  standalone: false,
+  standalone: true, // <-- ✨ HAZLO STANDALONE ✨
+  imports: [
+    CommonModule, // Necesario para @for
+    SongInfo, // Necesario para <app-song-info>
+  ],
   templateUrl: './playlist.html',
-  styleUrl: './playlist.css',
+  styleUrls: ['./playlist.css'],
 })
 export class Playlist {
-  playlist = input.required<Track[] | undefined>();
-  cover = input.required<Image | undefined>();
+  playlist = input<Track[] | undefined>();
+  cover = input<Image | undefined>();
 }
