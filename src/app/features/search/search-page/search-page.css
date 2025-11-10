@@ -1,146 +1,71 @@
-/* src/app/features/search/search-page/search-page.css */
-
-/* --- Contenedor Principal de la Página --- */
 .search-page-container {
-  padding: 20px;
-  box-sizing: border-box;
-  width: 100%;
-  height: calc(100vh - 100px); /* Ajusta si tu barra inferior tiene otra altura */
-  overflow-y: auto; /* Permite scroll vertical si hay muchas categorías */
-  display: flex;
-  flex-direction: column;
-  gap: 30px; /* Espacio entre la barra y las categorías */
+  width: min(1100px, 92vw);
+  margin: 24px auto;
+  display: grid;
+  gap: var(--gap-6);
 }
 
-/* --- Estilos para la Barra de Búsqueda (ya definida en search-bar.css) --- */
-/* Podemos darle un margen inferior aquí si es necesario */
-app-search-bar {
-  margin-bottom: 20px;
-}
-
-/* --- Categorías de Resultados (Canciones, Artistas, Álbumes) --- */
 .results-category {
-  width: 100%;
+  display: grid;
+  gap: var(--gap-3);
 }
 
-.results-category h2 {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: var(--color-texto-blanco);
-  margin-bottom: 15px;
-  padding-left: 10px; /* Pequeña indentación */
-  border-left: 3px solid var(--color-acento); /* Línea de acento */
-}
-
-/* --- Contenedor de Scroll Horizontal --- */
 .horizontal-scroll {
-  display: flex;
-  overflow-x: auto; /* Habilita el scroll horizontal */
-  overflow-y: hidden; /* Oculta el scroll vertical */
-  gap: 15px; /* Espacio entre items */
-  padding-bottom: 15px; /* Espacio para la barra de scroll */
-  /* Para que el scroll se vea mejor en navegadores Webkit (Chrome, Safari) */
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: var(--color-acento) var(--color-bg-terciario); /* Firefox */
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(180px, 220px);
+  gap: var(--gap-3);
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+}
+.horizontal-scroll > * {
+  scroll-snap-align: start;
 }
 
-.horizontal-scroll::-webkit-scrollbar {
-  height: 8px;
+/* Tarjetas genéricas (álbum, artista, track card de SongInfo) */
+.artist-card, .album-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--gap-2);
+  box-shadow: var(--shadow-sm);
+  display: grid;
+  gap: var(--gap-2);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 
-.horizontal-scroll::-webkit-scrollbar-track {
-  background: var(--color-bg-terciario);
-  border-radius: 4px;
+.artist-card:hover, .album-card:hover,
+.artist-card:focus-within, .album-card:focus-within {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--primary) 30%, var(--border));
+  box-shadow: var(--shadow);
 }
 
-.horizontal-scroll::-webkit-scrollbar-thumb {
-  background-color: var(--color-acento);
-  border-radius: 4px;
+.artist-card img, .album-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: calc(var(--radius) - 8px);
 }
 
-/* --- Estilos para los Items dentro del Scroll --- */
-
-/* Ajuste para app-song-info en modo 'card' dentro del scroll */
-.horizontal-scroll app-song-info {
-  /* Le damos un ancho mínimo para que no se aplaste */
-  min-width: 250px;
-  flex-shrink: 0; /* Evita que se encoja */
+.artist-card span, .album-card span {
+  font-size: .95rem;
+  color: var(--text);
+  line-height: 1.3;
 }
 
-/* --- Tarjetas de Artista y Álbum --- */
-.artist-card,
-.album-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding: 15px;
-  background-color: var(--color-bg-secundario);
-  border-radius: var(--radio-borde);
-  width: 160px; /* Ancho fijo para las tarjetas */
-  flex-shrink: 0;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+/* Responsive cols si decides mostrar en grid en lugar de carrusel */
+@container (min-width: 800px) {
+  .horizontal-scroll { grid-auto-columns: 220px; }
 }
 
-.artist-card:hover,
-.album-card:hover {
-  background-color: var(--color-bg-hover);
+/* Loading/skeleton (útil si agregas un flag isLoading) */
+.skeleton {
+  background: linear-gradient(90deg, var(--panel-2), var(--panel), var(--panel-2));
+  background-size: 200% 100%;
+  animation: shine 1.1s linear infinite;
+  border-radius: calc(var(--radius) - 8px);
 }
-
-.artist-card img,
-.album-card img {
-  width: 130px; /* Tamaño de la imagen */
-  height: 130px;
-  object-fit: cover; /* Asegura que la imagen cubra el espacio */
-}
-
-/* Imagen redonda para artistas */
-.artist-card img {
-  border-radius: 50%;
-}
-
-/* Imagen cuadrada para álbumes */
-.album-card img {
-  border-radius: 6px;
-}
-
-.artist-card span,
-.album-card span {
-  font-size: 0.9rem;
-  color: var(--color-texto-principal);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis; /* Corta texto largo */
-  width: 100%; /* Asegura que ellipsis funcione */
-}
-
-/* --- Mensaje de 'No Resultados' --- */
-/* (Hereda de search-section.css, pero podemos ajustarlo si es necesario) */
-.no-results {
-  /* ... estilos existentes ... */
-}
-
-/* --- Responsividad --- */
-@media (max-width: 768px) {
-  .search-page-container {
-    padding: 15px;
-    gap: 20px;
-  }
-
-  .results-category h2 {
-    font-size: 1.5rem;
-  }
-
-  .artist-card,
-  .album-card {
-    width: 140px;
-  }
-
-  .artist-card img,
-  .album-card img {
-    width: 110px;
-    height: 110px;
-  }
-}
+@keyframes shine { to { background-position: -200% 0; } }

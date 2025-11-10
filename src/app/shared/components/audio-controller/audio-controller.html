@@ -1,2 +1,26 @@
-<audio controls hidden></audio>
-<input type="range" id="control-bar" aria-label="Barra de progreso de la canción" />
+<!-- src/app/shared/components/audio-controller/audio-controller.html -->
+<div class="controller">
+  <!-- Modo interno (si 'src' existe) -->
+  <audio
+    #audio
+    hidden
+    preload="metadata"
+    [src]="src || undefined"
+    (timeupdate)="handleTimeUpdate(audio)"
+    (loadedmetadata)="handleLoaded(audio)"
+    (ended)="handleEnded()">
+  </audio>
+
+  <!-- Barra de progreso (funciona en ambos modos) -->
+  <input
+    #bar
+    type="range"
+    id="control-bar"
+    aria-label="Barra de progreso de la canción"
+    [attr.min]="0"
+    [attr.max]="safeDuration"
+    [step]="0.01"
+    [value]="safeCurrentTime"
+    (input)="handleInput($event)"
+    (change)="commitSeek()" />
+</div>

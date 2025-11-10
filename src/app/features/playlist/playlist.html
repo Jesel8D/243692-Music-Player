@@ -1,10 +1,11 @@
-<h1>
-    Playlist
-</h1>
+<h1>Playlist</h1>
 <div class="content">
-    @for(song of playlist(); track song.id){
-        <app-song-info [song]="song" [cover]="cover()" displayMode="card"></app-song-info>
-    } @empty {
-        
-    }
-</div>  
+  @for (song of playlist(); track song.id) {
+    <app-song-info
+      [song]="song"
+      [cover]="cover()"
+      displayMode="card"
+      style="--thumb-size:120px">
+    </app-song-info>
+  } @empty { }
+</div>

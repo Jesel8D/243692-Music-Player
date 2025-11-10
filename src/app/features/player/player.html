@@ -1,28 +1,55 @@
-<app-search-section></app-search-section>
+<!-- src/app/features/player/player.html -->
+<app-search-bar
+  (search)="openSearch($event)"
+  [navigateOnSearch]="false">
+</app-search-bar>
 
-<div id="main" *ngIf="album$ | async as album">
-  <app-song-info
-    [song]="album?.tracks?.[currentTrackIndex]"
-    [cover]="album?.images?.[0]"
-    displayMode="main"
-  ></app-song-info>
-  <app-playlist [playlist]="album?.tracks" [cover]="album?.images?.[0]"></app-playlist>
-</div>
+<!-- Vista principal (Player) -->
+<ng-container *ngIf="album$ | async as album">
+  <div [hidden]="showSearch">
+    <div id="main">
+      <app-song-info
+        [song]="album?.tracks?.[currentTrackIndex]"
+        [cover]="album?.images?.[0]"
+        displayMode="main">
+      </app-song-info>
 
-<div class="bottom-player-bar" *ngIf="album$ | async as album">
-  <app-audio-controller></app-audio-controller>
+      <app-playlist
+        [playlist]="album?.tracks"
+        [cover]="album?.images?.[0]">
+      </app-playlist>
+    </div>
 
-  <div class="player-controls">
-    <button *ngIf="album?.tracks?.length" (click)="previousTrack(album)">
-      <img src="/left.svg" alt="Previous" class="button-icon" />
-    </button>
+    <div class="bottom-player-bar">
+      <app-audio-controller
+        [src]="currentPreviewUrl || null"
+      [currentTime]="playbackSeconds"
+        [duration]="trackDuration"
+        (seek)="onSeekFromBar($event)"
+        (ended)="skipTrack(album)">
+      </app-audio-controller>
 
-    <button *ngIf="album?.tracks?.length" (click)="togglePlayPause(album)">
-      <img [src]="isPlaying ? '/pause.svg' : '/play.svg'" alt="Play/Pause" class="button-icon" />
-    </button>
+      <div class="player-controls">
+        <button *ngIf="album?.tracks?.length" (click)="previousTrack(album)" aria-label="Anterior">
+          <img src="/left.svg" alt="" class="button-icon" />
+        </button>
 
-    <button *ngIf="album?.tracks?.length" (click)="skipTrack(album)">
-      <img src="/right.svg" alt="Next" class="button-icon" />
-    </button>
+        <button *ngIf="album?.tracks?.length" (click)="togglePlayPause(album)" aria-label="Reproducir/Pausar">
+          <img [src]="isPlaying ? '/pause.svg' : '/play.svg'" alt="" class="button-icon" />
+        </button>
+
+        <button *ngIf="album?.tracks?.length" (click)="skipTrack(album)" aria-label="Siguiente">
+          <img src="/right.svg" alt="" class="button-icon" />
+        </button>
+      </div>
+    </div>
   </div>
-</div>
+
+  <!-- Vista de búsqueda embebida (queda viva) -->
+  <div [hidden]="!showSearch" class="search-embed">
+    <div class="search-embed-header">
+      <button class="ghost" (click)="closeSearch()" aria-label="Volver">← Volver</button>
+    </div>
+    <app-search-page></app-search-page>
+  </div>
+</ng-container>

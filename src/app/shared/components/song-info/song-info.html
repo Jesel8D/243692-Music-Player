@@ -1,5 +1,42 @@
-<img src="{{cover()?.url}}" alt="" class="card-song-img">
-<div class="card-song-details">
-    <h1 class="card-song-title">{{song()?.name}}</h1>
-    <h3 class="card-song-artist">{{song()?.artists?.at(0)?.name}}</h3>
-</div>
+<!-- src/app/shared/components/song-info/song-info.html -->
+
+@if (displayMode() === 'card') {
+  <!-- CARD MODE -->
+  <img
+    class="card-song-img"
+    [src]="primaryCover()?.url || ''"
+    [alt]="song()?.name || 'Cover'"
+  />
+
+  <div class="card-song-details">
+    <div class="card-song-title">
+      {{ song()?.name || '—' }}
+    </div>
+    <div class="card-song-artist">
+      <!-- artista principal; si quieres varios, cambiamos esto a un *ngFor -->
+      {{ song()?.artists?.[0]?.name || '' }}
+    </div>
+  </div>
+} @else {
+  <!-- MAIN MODE -->
+  <img
+    class="card-song-img"
+    [src]="primaryCover()?.url || ''"
+    [alt]="song()?.name || 'Cover'"
+  />
+
+  <div class="card-song-details">
+    <div class="card-song-title">
+      {{ song()?.name || '—' }}
+    </div>
+    <div class="card-song-artist">
+      <!-- muestra todos los artistas separados por coma -->
+      <ng-container *ngIf="song()?.artists as artists; else noArtists">
+        <ng-container *ngFor="let a of artists; let last = last">
+          {{ a?.name }}<ng-container *ngIf="!last">, </ng-container>
+        </ng-container>
+      </ng-container>
+      <ng-template #noArtists></ng-template>
+    </div>
+  </div>
+}

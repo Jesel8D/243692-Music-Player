@@ -1,142 +1,159 @@
-/* Aquí tu archivo .component.scss para el reproductor de música */
-
 :host {
-    width: 100%;
-    /* Ajusta la altura del host del reproductor. Podemos usar una altura fija más estilizada. */
-    height: 90px; /* Una altura cómoda para la barra del reproductor */
-    margin-top: auto; /* Empuja el reproductor hacia la parte inferior si está en un contenedor flex-column */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centra el contenido verticalmente */
-    align-items: center; /* Centra el contenido horizontalmente */
-    background-color: #0d0d0d; /* Fondo muy oscuro para la barra del reproductor */
-    border-top: 1px solid #2a2a2a; /* Borde superior sutil */
-    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.7); /* Sombra hacia arriba para destacar */
-    padding: 10px 0; /* Padding interno para los elementos */
-    box-sizing: border-box; /* Fundamental para que el padding no afecte la altura total */
-    color: #e0e0e0; /* Color de texto/icono general */
+  width: 100%;
+  height: 90px;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--panel, #0d0d0d);
+  border-top: 1px solid var(--border, #2a2a2a);
+  box-shadow: 0 -5px 20px rgba(0,0,0,.7);
+  padding: 10px 0;
+  box-sizing: border-box;
+  color: var(--text, #e0e0e0);
 }
 
-/* El elemento <audio> con 'hidden' no necesita estilos visuales, solo funcional. */
-audio[hidden] {
-    display: none;
-}
+/* El <audio hidden> no requiere estilos visuales */
+audio[hidden] { display: none; }
 
+/* ====== Barra de progreso ====== */
 #control-bar {
-    width: clamp(250px, 60%, 800px); /* Ancho responsivo: min 250px, 60% del padre, max 800px */
-    height: 4px; /* Barra de progreso más fina */
-    -webkit-appearance: none; /* Eliminar estilos por defecto del navegador */
-    appearance: none;
-    background: #4a4a4a; /* Fondo de la barra sin progreso */
-    border-radius: 2px; /* Bordes redondeados */
-    margin-bottom: 10px; /* Espacio entre la barra de control y los botones */
-    outline: none; /* Eliminar el contorno al enfocar */
-    cursor: pointer; /* Indicar que es interactuable */
-
-    /* Estilos del 'thumb' (el control deslizante) */
-    &::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 14px; /* Tamaño del thumb */
-        height: 14px;
-        background: #ff4081; /* Tu color primario */
-        border-radius: 50%; /* Circular */
-        box-shadow: 0 0 5px rgba(255, 64, 129, 0.5); /* Sombra para el thumb */
-        cursor: pointer;
-        margin-top: -5px; /* Ajusta la posición vertical del thumb */
-        transition: background 0.2s, transform 0.2s; /* Transición suave */
-    }
-
-    &::-moz-range-thumb {
-        width: 14px;
-        height: 14px;
-        background: #ff4081;
-        border-radius: 50%;
-        box-shadow: 0 0 5px rgba(255, 64, 129, 0.5);
-        cursor: pointer;
-        border: none; /* Eliminar borde por defecto en Firefox */
-        transition: background 0.2s, transform 0.2s;
-    }
-
-    /* Estilos de la parte 'track' (la barra de progreso) */
-    &::-webkit-slider-runnable-track {
-        background: linear-gradient(to right, #ff4081 var(--progress, 0%), #4a4a4a var(--progress, 0%));
-        border-radius: 2px;
-        height: 4px;
-    }
-
-    &::-moz-range-track {
-        background: linear-gradient(to right, #ff4081 var(--progress, 0%), #4a4a4a var(--progress, 0%));
-        border-radius: 2px;
-        height: 4px;
-    }
-
-    /* Hover effect for thumb */
-    &:hover::-webkit-slider-thumb {
-        transform: scale(1.2);
-    }
-    &:hover::-moz-range-thumb {
-        transform: scale(1.2);
-    }
+  width: clamp(250px, 60%, 800px);
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--border, #4a4a4a);
+  border-radius: 2px;
+  margin-bottom: 10px;
+  outline: none;
+  cursor: pointer;
 }
 
+/* WebKit track (fondo general) */
+#control-bar::-webkit-slider-runnable-track {
+  background: linear-gradient(
+    to right,
+    var(--primary, #6aa7ff) var(--progress, 0%),
+    var(--border, #4a4a4a) var(--progress, 0%)
+  );
+  border-radius: 2px;
+  height: 4px;
+}
 
+/* WebKit thumb */
+#control-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--primary, #6aa7ff);
+  border-radius: 50%;
+  box-shadow: 0 0 5px color-mix(in srgb, var(--primary, #6aa7ff) 50%, transparent);
+  margin-top: -5px; /* centra el thumb en la pista */
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+/* Firefox: pista y progreso */
+#control-bar::-moz-range-track {
+  background: var(--border, #4a4a4a);
+  height: 4px;
+  border-radius: 2px;
+}
+#control-bar::-moz-range-progress {
+  background: var(--primary, #6aa7ff);
+  height: 4px;
+  border-radius: 2px;
+}
+
+/* Firefox: thumb */
+#control-bar::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--primary, #6aa7ff);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 5px color-mix(in srgb, var(--primary, #6aa7ff) 50%, transparent);
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+  cursor: pointer;
+}
+
+/* Hover / Focus (ambos motores) */
+#control-bar:hover::-webkit-slider-thumb,
+#control-bar:focus-visible::-webkit-slider-thumb {
+  transform: scale(1.2);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--primary, #6aa7ff) 65%, transparent);
+}
+#control-bar:hover::-moz-range-thumb,
+#control-bar:focus-visible::-moz-range-thumb {
+  transform: scale(1.2);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--primary, #6aa7ff) 65%, transparent);
+}
+
+/* Anillo de enfoque accesible */
+#control-bar:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary, #6aa7ff) 30%, transparent);
+  border-radius: 6px;
+}
+
+/* ====== Botones de control ====== */
 .player-buttons {
-    width: clamp(180px, 30%, 400px); /* Ancho responsivo para los botones */
-    height: 50%; /* Ocupa la mitad de la altura del host */
-    display: flex;
-    justify-content: space-around; /* Distribuye los botones equitativamente */
-    align-items: center;
-    margin-top: 5px; /* Espacio entre la barra y los botones */
+  width: clamp(180px, 30%, 400px);
+  height: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 5px;
+  gap: 10px;
 }
 
 .player-buttons span {
-    display: flex; /* Para centrar el icono dentro del span */
-    justify-content: center;
-    align-items: center;
-    cursor: pointer; /* Indica que son clickeables */
-    transition: color 0.2s ease-in-out, transform 0.1s ease-in-out; /* Transición suave */
-    color: #b0b0b0; /* Color predeterminado de los iconos */
-
-    &:hover {
-        color: #ffffff; /* Blanco al pasar el ratón */
-        transform: scale(1.1); /* Ligeramente más grande */
-    }
-
-    &:active {
-        transform: scale(0.9); /* Efecto de "presionado" */
-    }
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-muted, #b0b0b0);
+  cursor: pointer;
+  transition: color .2s ease, transform .12s ease;
+  border-radius: 10px; /* mejora hit-area visual si agregas focus styles */
 }
 
+.player-buttons span:hover {
+  color: var(--text, #ffffff);
+  transform: translateY(-1px) scale(1.06);
+}
+.player-buttons span:active {
+  transform: scale(.94);
+}
+.player-buttons span:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary, #6aa7ff) 30%, transparent);
+}
+
+/* Iconos */
 .player-buttons span i {
-    font-size: 1.8em; /* Ajusta el tamaño de los iconos */
-    /* El icono de play/pause podría ser más grande */
-    &.fa-play, &.fa-pause { /* Asumiendo que cambiarás la clase para pausa */
-        font-size: 2.5em; /* Icono de play/pause más grande */
-        color: #ff4081; /* Color primario para el botón principal */
-        &:hover {
-            color: #ff6eac; /* Un tono más claro de tu primario al pasar el ratón */
-        }
-    }
+  font-size: 1.8em;
+}
+.player-buttons span i.fa-play,
+.player-buttons span i.fa-pause {
+  font-size: 2.4em;
+  color: var(--primary, #6aa7ff);
+}
+.player-buttons span:hover i.fa-play,
+.player-buttons span:hover i.fa-pause {
+  color: color-mix(in srgb, var(--primary, #6aa7ff) 80%, white 20%);
 }
 
-/* Responsividad básica para el reproductor */
+/* ====== Responsivo ====== */
 @media (max-width: 768px) {
-    :host {
-        height: 80px; /* Un poco menos alto en móviles */
-        padding: 8px 0;
-    }
-    #control-bar {
-        width: 80%; /* Más ancho en móviles */
-        margin-bottom: 8px;
-    }
-    .player-buttons {
-        width: 60%; /* Más ancho en móviles */
-    }
-    .player-buttons span i {
-        font-size: 1.5em;
-        &.fa-play, &.fa-pause {
-            font-size: 2em;
-        }
-    }
+  :host { height: 80px; padding: 8px 0; }
+  #control-bar { width: 80%; margin-bottom: 8px; }
+  .player-buttons { width: 60%; }
+  .player-buttons span i { font-size: 1.5em; }
+  .player-buttons span i.fa-play,
+  .player-buttons span i.fa-pause { font-size: 2em; }
+}
+
+/* Respeta preferencias del usuario */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
 }

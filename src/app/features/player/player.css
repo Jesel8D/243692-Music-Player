@@ -56,7 +56,7 @@ app-song-info {
 
 app-playlist {
   display: block;
-  width: 90%;
+  width: 400px;
   height: 100%; /* Ocupa todo el alto de la celda */
 }
 
@@ -97,7 +97,7 @@ app-audio-controller {
 
 /* --- ESTILOS DE BOTONES (Se mantienen igual, están bien) --- */
 button {
-  background-color: transparent;
+  background-color: #12050500;
   border: none;
   padding: 12px;
   cursor: pointer;
@@ -165,4 +165,28 @@ button:focus {
   }
 
   /* ... el resto de tus media queries ... */
+  .search-embed {
+    width: min(1100px, 92vw);
+    margin: 16px auto;
+  }
+
+  .search-embed-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 8px;
+  }
+
+  .search-embed-header .ghost {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .search-embed-header .ghost:hover {
+    border-color: var(--primary);
+  }
+
 }
