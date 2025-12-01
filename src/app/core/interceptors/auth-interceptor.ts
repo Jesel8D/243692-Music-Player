@@ -7,11 +7,8 @@ import {
 } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { SpotifyLoginService } from '../../services/spotify-api/spotify-login-service';
-// ✨ RUTA CORREGIDA (sube 2 niveles a 'app/', luego baja a 'services/')
 import { CookiesStorageService } from '../../services/general/cookies-storage-service';
-// ✨ RUTA CORREGIDA (sube 1 nivel a 'core/', luego baja a 'guards/')
 import { isTokenResponse } from '../guards/spotify-api/is-token-response';
-// ✨ RUTA CORREGIDA (sube 3 niveles a 'src/', luego baja a 'environments/')
 import { environment } from '../../../environments/environment.development';
 import { catchError, switchMap, throwError, tap, Observable } from 'rxjs';
 export const authInterceptor: HttpInterceptorFn = (

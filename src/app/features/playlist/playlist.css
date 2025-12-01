@@ -1,92 +1,89 @@
-/* playlist.css (Refactorizado con Variables) */
-
 :host {
+  display: block;
   height: 100%;
   width: 100%;
 }
 
-/* Título de la lista de canciones (Queue) */
+/* Título */
 h1 {
   font-size: 2rem;
-  color: var(--color-texto-blanco); /* ✨ Variable */
+  color: var(--color-texto-blanco);
   text-align: center;
-  margin-bottom: 20px;
+  margin: 20px 0;
   font-weight: bold;
 }
 
-/* Contenedor principal de la lista de canciones */
-.content {
+/* Contenedor general de la playlist */
+.playlist-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  padding: 0 16px 24px;
+  box-sizing: border-box;
+}
+
+/* Contenedor con scroll de la playlist */
+.playlist-content {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Espacio entre canciones */
-  padding: 20px;
-  height: 80vh;
+  gap: 15px;
+  padding: 16px;
+  height: 70vh;
   overflow-y: auto;
 
-  /* Aquí usamos un color un poco más oscuro, como el del player,
-     que se parece más al #121212 que tenías */
-  background-color: var(--color-bg-player); /* ✨ Variable */
+  background-color: var(--color-bg-player);
+  border-radius: var(--radio-borde);
+  box-shadow: var(--sombra-caja);
 
-  border-radius: var(--radio-borde); /* ✨ Variable (era 15px, ahora 10px por consistencia) */
-  box-shadow: var(--sombra-caja); /* ✨ Variable */
-  width: 90%;
-  margin: 0 auto; /* Centrado en la pantalla */
+  width: 100%;
+  margin: 0;
 }
 
-/* Estilo para cada componente app-song-info en la lista */
-app-song-info {
-  background-color: var(--color-bg-secundario); /* ✨ Variable (era #1e1e1e) */
-  padding: 20px;
-  border-radius: var(--radio-borde); /* ✨ Variable (era 10px, se mantiene) */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Sombra específica para items */
-  transition: background-color 0.3s ease;
+/* Cada ítem (tarjeta) de la playlist envuelve al app-song-info */
+.playlist-item {
+  background-color: var(--color-bg-secundario);
+  border-radius: var(--radio-borde);
+  padding: 12px 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+  overflow: hidden; /* nada se sale del borde */
+  transition: background-color 0.2s ease, transform 0.1s ease;
+
+  min-height: 72px; /* altura mínima para que no se vea “aplastado” */
+  display: flex;
+  align-items: center;
 }
 
-/* Efecto hover para cada canción en la lista */
-app-song-info:hover {
-  background-color: var(--color-bg-hover); /* ✨ Variable (era #2c2c2c) */
+.playlist-item:hover {
+  background-color: var(--color-bg-hover);
+  transform: translateY(-1px);
 }
 
-/* Espaciado entre cada componente de la canción */
-app-song-info .card-song-title {
-  font-size: 1.4rem;
-  color: var(--color-texto-principal); /* ✨ Variable (era #e0e0e0) */
-  font-weight: bold;
+/* Estado vacío */
+.empty-state {
+  text-align: center;
+  color: var(--color-texto-secundario);
+  padding: 24px 8px;
 }
 
-app-song-info .card-song-artist {
-  font-size: 1.2rem;
-  color: var(--color-texto-secundario); /* ✨ Variable (era #b0b0b0) */
+/* Asegurar que el componente hijo ocupe todo el ancho disponible */
+.playlist-item app-song-info {
+  display: block;
+  width: 100%;
 }
 
-/* ... el resto de tu CSS (media queries, etc.) se mantiene igual ... */
-
-/* Asegurarse de que el contenido tenga un buen espaciado entre los elementos */
-.content > * {
-  margin-bottom: 15px;
-}
-
-/* Media Queries para Responsividad */
+/* Responsive */
 @media (max-width: 768px) {
-  .content {
-    width: 95%;
-    padding: 15px;
-    height: auto;
+  .playlist-content {
+    max-width: 100%;
+    padding: 12px;
+    max-height: none;
   }
 
   h1 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
-  app-song-info {
-    padding: 15px;
-  }
-
-  app-song-info .card-song-title {
-    font-size: 1.2rem;
-  }
-
-  app-song-info .card-song-artist {
-    font-size: 1rem;
+  .playlist-item {
+    padding: 10px 12px;
   }
 }

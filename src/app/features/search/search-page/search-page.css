@@ -1,24 +1,31 @@
-/* src/app/features/search/search-page/search-page.css */
-
-/* --- Contenedor Principal de la Página --- */
+/* Contenedor principal de la página de búsqueda */
 .search-page-container {
-  padding: 20px;
   box-sizing: border-box;
   width: 100%;
-  height: calc(100vh - 100px); /* Ajusta si tu barra inferior tiene otra altura */
-  overflow-y: auto; /* Permite scroll vertical si hay muchas categorías */
+  min-height: calc(100vh - 80px); /* Deja respirar arriba y abajo */
+  padding: 32px 48px 120px; /* Top, laterales, espacio para la barra inferior */
   display: flex;
   flex-direction: column;
-  gap: 30px; /* Espacio entre la barra y las categorías */
+  align-items: center; /* Centra la barra horizontalmente */
+  gap: 32px;
 }
 
-/* --- Estilos para la Barra de Búsqueda (ya definida en search-bar.css) --- */
-/* Podemos darle un margen inferior aquí si es necesario */
-app-search-bar {
-  margin-bottom: 20px;
+/* Barra de búsqueda centrada y con ancho máximo */
+.search-page-container app-search-bar {
+  width: 100%;
+  max-width: 600px;
 }
 
-/* --- Categorías de Resultados (Canciones, Artistas, Álbumes) --- */
+/* Contenedor de todos los resultados (canciones, artistas, álbumes) */
+.search-results {
+  width: 100%;
+  max-width: 1200px; /* Ancho máximo del contenido */
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Categorías de resultados */
 .results-category {
   width: 100%;
 }
@@ -26,22 +33,20 @@ app-search-bar {
 .results-category h2 {
   font-size: 1.8rem;
   font-weight: bold;
-  color: var(--color-texto-blanco);
-  margin-bottom: 15px;
-  padding-left: 10px; /* Pequeña indentación */
-  border-left: 3px solid var(--color-acento); /* Línea de acento */
+  color: white;
+  margin-bottom: 16px;
 }
 
-/* --- Contenedor de Scroll Horizontal --- */
+/* Contenedor de scroll horizontal para cada categoría */
 .horizontal-scroll {
   display: flex;
-  overflow-x: auto; /* Habilita el scroll horizontal */
-  overflow-y: hidden; /* Oculta el scroll vertical */
-  gap: 15px; /* Espacio entre items */
-  padding-bottom: 15px; /* Espacio para la barra de scroll */
-  /* Para que el scroll se vea mejor en navegadores Webkit (Chrome, Safari) */
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: var(--color-acento) var(--color-bg-terciario); /* Firefox */
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 16px;
+  padding-bottom: 10px;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-acento) var(--color-bg-terciario);
 }
 
 .horizontal-scroll::-webkit-scrollbar {
@@ -58,16 +63,14 @@ app-search-bar {
   border-radius: 4px;
 }
 
-/* --- Estilos para los Items dentro del Scroll --- */
-
-/* Ajuste para app-song-info en modo 'card' dentro del scroll */
-.horizontal-scroll app-song-info {
-  /* Le damos un ancho mínimo para que no se aplaste */
-  min-width: 250px;
-  flex-shrink: 0; /* Evita que se encoja */
+/* app-song-info en modo card dentro del scroll de búsqueda */
+.search-page-container .horizontal-scroll app-song-info.card {
+  /* No uses width: 100% aquí; queremos cards compactas */
+  flex: 0 0 260px; /* basis 260px, no crece, no se encoge */
+  max-width: 260px;
 }
 
-/* --- Tarjetas de Artista y Álbum --- */
+/* Tarjetas de artista y álbum */
 .artist-card,
 .album-card {
   display: flex;
@@ -77,11 +80,11 @@ app-search-bar {
   padding: 15px;
   background-color: var(--color-bg-secundario);
   border-radius: var(--radio-borde);
-  width: 160px; /* Ancho fijo para las tarjetas */
+  width: 160px;
   flex-shrink: 0;
   text-align: center;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
 }
 
 .artist-card:hover,
@@ -91,17 +94,15 @@ app-search-bar {
 
 .artist-card img,
 .album-card img {
-  width: 130px; /* Tamaño de la imagen */
+  width: 130px;
   height: 130px;
-  object-fit: cover; /* Asegura que la imagen cubra el espacio */
+  object-fit: cover;
 }
 
-/* Imagen redonda para artistas */
 .artist-card img {
   border-radius: 50%;
 }
 
-/* Imagen cuadrada para álbumes */
 .album-card img {
   border-radius: 6px;
 }
@@ -109,24 +110,22 @@ app-search-bar {
 .artist-card span,
 .album-card span {
   font-size: 0.9rem;
-  color: var(--color-texto-principal);
+  color: white;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; /* Corta texto largo */
-  width: 100%; /* Asegura que ellipsis funcione */
+  text-overflow: ellipsis;
+  width: 100%;
 }
 
-/* --- Mensaje de 'No Resultados' --- */
-/* (Hereda de search-section.css, pero podemos ajustarlo si es necesario) */
-.no-results {
-  /* ... estilos existentes ... */
-}
-
-/* --- Responsividad --- */
+/* Responsivo */
 @media (max-width: 768px) {
   .search-page-container {
-    padding: 15px;
-    gap: 20px;
+    padding: 24px 16px 100px;
+    gap: 24px;
+  }
+
+  .search-results {
+    gap: 24px;
   }
 
   .results-category h2 {
@@ -143,4 +142,31 @@ app-search-bar {
     width: 110px;
     height: 110px;
   }
+}
+
+
+.back-button {
+  align-self: flex-start;
+  background-color: var(--color-bg-secundario);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: var(--radio-borde);
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+  margin-bottom: 10px;
+}
+
+.back-button:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.back-button {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

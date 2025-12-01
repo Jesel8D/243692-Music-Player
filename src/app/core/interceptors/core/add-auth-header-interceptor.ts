@@ -1,6 +1,5 @@
 import { environment } from '../../../../environments/environment.development';
 import { HttpInterceptorFn } from '@angular/common/http';
-// ✨ RUTA CORREGIDA (sube 3 niveles a 'app/', luego baja a 'services/')
 import { CookiesStorageService } from '../../../services/general/cookies-storage-service';
 import { inject } from '@angular/core';
 

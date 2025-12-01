@@ -1,6 +1,4 @@
 /* player.css (Versión Limpia) */
-
-/* --- 🎨 GUÍA DE ESTILO CENTRAL 🎨 --- */
 :host {
   /* Paleta de Colores */
   --color-bg-principal: #1a1a1a;
@@ -35,15 +33,18 @@
 }
 
 #main {
-  width: 95%;
-  height: calc(100% - 110px);
   display: grid;
-  grid-template-columns: 75% 25%;
-  grid-template-rows: 100%;
-  align-items: center;
-  justify-items: center;
-  margin-bottom: 20px;
-  gap: 20px; /* Añadimos gap para espaciar */
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr); /* izquierda grande, derecha playlist */
+  gap: 32px;
+  align-items: flex-start;
+  padding: 24px 40px 0;
+  box-sizing: border-box;
+}
+
+/* Que playlist use todo el ancho de su columna */
+#main app-playlist {
+  width: 100%;
+  height: 100%;
 }
 
 /* --- ESTILOS DE MAQUETACIÓN (LAYOUT) --- */
@@ -108,16 +109,20 @@ button {
   justify-content: center;
   position: relative;
 }
+
 button:hover {
   background-color: rgba(255, 255, 255, 0.15);
   transform: translateY(-2px);
 }
+
 button:active {
   /* ... */
 }
+
 .button-icon {
   /* ... */
 }
+
 button:focus {
   /* ... */
 }
@@ -148,6 +153,7 @@ button:focus {
   :host {
     padding-top: 10px;
   }
+
   #main {
     width: 98%;
     height: calc(100% - 90px);
@@ -155,10 +161,12 @@ button:focus {
     grid-template-rows: auto 1fr; /* Canción (auto) y Playlist (ocupa el resto) */
     gap: 15px;
   }
+
   app-song-info {
     width: 95%;
     height: auto; /* Altura automática en móvil */
   }
+
   app-playlist {
     width: 95%;
     height: 100%; /* Ocupa el 1fr del grid-template-rows */

@@ -14,7 +14,6 @@ const routes: Routes = [
     component: Player,
     title: 'Player Music',
   },
-  // --- ✨ 2. AÑADE LA NUEVA RUTA AQUÍ ✨ ---
   {
     path: 'search', // La URL será /search
     component: SearchPageComponent,

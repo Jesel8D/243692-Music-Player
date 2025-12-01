@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { SpotifyAlbumService } from '../../services/spotify-api/spotify-album-service';
-import { SpotifyPlaybackService } from '../../services/spotify-api/spotify-playback-service';
-import { Album } from '../../interfaces/album';
-import { Track } from '../../interfaces/track';
-
-// --- ✨ IMPORTACIONES CORREGIDAS ✨ ---
-import { CommonModule } from '@angular/common';
-import { SearchModule } from '../search/search-module'; // <-- Importa el MÓDULO
-import { SongInfo } from '../../shared/components/song-info/song-info';
-import { Playlist } from '../playlist/playlist';
-import { AudioController } from '../../shared/components/audio-controller/audio-controller'; // <-- Ahora es standalone
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {SpotifyAlbumService} from '../../services/spotify-api/spotify-album-service';
+import {SpotifyPlaybackService} from '../../services/spotify-api/spotify-playback-service';
+import {Album} from '../../interfaces/album';
+import {Track} from '../../interfaces/track';
+import {CommonModule} from '@angular/common';
+import {SearchModule} from '../search/search-module';
+import {SongInfo} from '../../shared/components/song-info/song-info';
+import {Playlist} from '../playlist/playlist';
+import {AudioController} from '../../shared/components/audio-controller/audio-controller';
+import {SearchBar} from '../search/search-bar/search-bar'; // <-- Ahora es standalone
 @Component({
   selector: 'app-player',
   standalone: true,
@@ -18,8 +17,9 @@ import { AudioController } from '../../shared/components/audio-controller/audio-
     CommonModule,
     SearchModule,
     SongInfo,
-    Playlist, // <-- ✨ Añade Playlist aquí ✨
+    Playlist,
     AudioController,
+    SearchBar
   ],
   templateUrl: './player.html',
   styleUrls: ['./player.css'],
@@ -37,7 +37,8 @@ export class Player implements OnInit {
     this.album$ = this._spotifyAlbum.getAlbum('2X6WyzpxY70eUn3lnewB7d');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   togglePlayPause(album: Album) {
     if (this.isPlaying) {

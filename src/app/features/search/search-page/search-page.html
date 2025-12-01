@@ -1,36 +1,47 @@
 <div class="search-page-container">
-  <app-search-bar (search)="onSearch($event)"></app-search-bar>
 
-  <div class="results-category" *ngIf="tracks().length > 0">
-    <h2>Canciones</h2>
-    <div class="horizontal-scroll">
-      @for(track of tracks(); track track.id) {
-      <app-song-info [song]="track" displayMode="card"></app-song-info>
-      }
-    </div>
-  </div>
+  <button class="back-button" (click)="goHome()">
+    <i class="fa-solid fa-arrow-left"></i>
+  </button>
 
-  <div class="results-category" *ngIf="artists().length > 0">
-    <h2>Artistas</h2>
-    <div class="horizontal-scroll">
-      @for(artist of artists(); track artist.id) {
-      <div class="artist-card">
-        <img [src]="artist.images[0]?.url" alt="Artista" />
-        <span>{{ artist.name }}</span>
+  <app-search-bar></app-search-bar>
+
+  <div class="search-results">
+    <div class="results-category" *ngIf="tracks().length > 0">
+      <h2>Canciones</h2>
+      <div class="horizontal-scroll">
+        @for (track of tracks(); track track.id) {
+          <app-song-info
+            [song]="track"
+            [cover]="track.album.images[0]"
+            displayMode="card">
+          </app-song-info>
+        }
       </div>
-      }
     </div>
-  </div>
 
-  <div class="results-category" *ngIf="albums().length > 0">
-    <h2>Álbumes</h2>
-    <div class="horizontal-scroll">
-      @for(album of albums(); track album.id) {
-      <div class="album-card">
-        <img [src]="album.images[0]?.url" alt="Álbum" />
-        <span>{{ album.name }}</span>
+    <div class="results-category" *ngIf="artists().length > 0">
+      <h2>Artistas</h2>
+      <div class="horizontal-scroll">
+        @for (artist of artists(); track artist.id) {
+          <div class="artist-card">
+            <img [src]="artist.images[0]?.url" alt="Artista"/>
+            <span>{{ artist.name }}</span>
+          </div>
+        }
       </div>
-      }
+    </div>
+
+    <div class="results-category" *ngIf="albums().length > 0">
+      <h2>Álbumes</h2>
+      <div class="horizontal-scroll">
+        @for (album of albums(); track album.id) {
+          <div class="album-card">
+            <img [src]="album.images[0]?.url" alt="Álbum"/>
+            <span>{{ album.name }}</span>
+          </div>
+        }
+      </div>
     </div>
   </div>
 </div>

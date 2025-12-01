@@ -1,73 +1,117 @@
-* {
+/* Sin reset global para no romper nada dentro del componente */
+/* * {
   padding: 0;
   margin: 0;
+} */
+
+:host {
+  display: block;
+  box-sizing: border-box;
 }
+
+/* Estilos base compartidos por ambos modos */
+.card-song-img {
+  display: block;
+}
+
+.card-song-details {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ───── MODO CARD: lista (playlist) ───── */
 
 :host(.card) {
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   align-items: center;
-  padding: 10px 0;
+  gap: 10px;
+  padding: 8px 10px;
+  box-sizing: border-box;
 }
 
+/* Imagen pequeña en la lista */
 :host(.card) .card-song-img {
-  width: 75px;
-  height: 75px;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
   border-radius: 20%;
-  margin-right: 10px;
-  padding: 5%;
+  margin-right: 4px;
+  object-fit: cover;
 }
 
+/* Contenedor de texto: que use el espacio restante */
 :host(.card) .card-song-details {
-  width: 150px;
+  flex: 1;
+  min-width: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-:host(.card) .card-song-details .card-song-title {
+:host(.card) .card-song-title {
   font-weight: bold;
-  white-space: normal;
-  font-size: 1em;
-  margin-bottom: 5px;
+  font-size: 0.95rem;
+  margin-bottom: 2px;
 }
 
-:host(.card) .card-song-details .card-song-artist {
-  font-weight: 200;
-  font-size: 1em;
+:host(.card) .card-song-artist {
+  font-weight: 300;
+  font-size: 0.85rem;
 }
+
+/* ───── MODO MAIN: carátula grande ───── */
 
 :host(.main) {
   width: 100%;
   height: 100%;
   text-align: center;
+
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: normal;
+  justify-content: normal;
+  gap: 16px;
 }
 
+/* Imagen grande */
 :host(.main) .card-song-img {
   width: 300px;
   height: 300px;
   border-radius: 20px;
   box-shadow: 5px 5px 5px #222831;
-  margin-bottom: 20px;
+  object-fit: cover;
 }
 
+/* Textos grandes, sin truncar */
 :host(.main) .card-song-details {
   width: 300px;
   overflow: hidden;
 }
 
-:host(.main) .card-song-details .card-song-title {
+:host(.main) .card-song-title {
   font-weight: bolder;
-  font-size: 2.3em;
+  font-size: 2.3rem;
+  white-space: normal;
 }
 
-:host(.main) .card-song-details .card-song-artist {
+:host(.main) .card-song-artist {
   font-weight: 200;
-  font-size: 1.3em;
+  font-size: 1.3rem;
+  white-space: normal;
+}
+
+/* Colores de texto en modo CARD */
+:host(.card) .card-song-title {
+  font-weight: bold;
+  font-size: 0.95rem;
+  margin-bottom: 2px;
+  color: var(--color-texto-principal, #ffffff);
+}
+
+:host(.card) .card-song-artist {
+  font-weight: 300;
+  font-size: 0.85rem;
+  color: var(--color-texto-secundario, #cccccc);
 }
